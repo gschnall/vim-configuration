@@ -1,0 +1,59 @@
+syntax enable 
+colorscheme slate
+highlight Pmenu ctermbg=238 ctermfg=220
+set background=dark
+
+" Enable indentGuides
+let g:indent_guides_enable_on_vim_startup = 1 
+set laststatus=2
+
+execute pathogen#infect()
+
+set showcmd
+set showmode
+set title
+set number
+set guifont=Monaco:h14
+set tabstop=2
+set shiftwidth=2
+set softtabstop=0
+set expandtab
+set smarttab
+set smartindent
+set ruler
+set laststatus=2
+
+set wrap linebreak nolist
+
+set hlsearch
+set incsearch 
+set showmatch
+
+set wildmenu
+
+map <C-n> :NERDTreeToggle<CR>
+
+execute pathogen#infect()
+call pathogen#helptags()
+
+" autocompletion
+filetype plugin on
+set omnifunc=syntaxcomplete#Complete
+set wildmode=longest,list,full
+
+"Use TAB to complete when typing words, else inserts TABs as usual.
+"Uses dictionary and source files to find matching words to complete.
+
+"See help completion for source,
+"Note: usual completion is on <C-n> but more trouble to press all the time.
+"Never type the same word twice and maybe learn a new spellings!
+"Use the Linux dictionary when spelling is in doubt.
+function! Tab_Or_Complete()
+  if col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^\w'
+    return "\<C-N>"
+  else
+    return "\<Tab>"
+  endif
+endfunction
+:inoremap <Tab> <C-R>=Tab_Or_Complete()<CR>
+:set dictionary="/usr/dict/words"
